@@ -1,0 +1,78 @@
+<div class="page" ng-controller="ProductCtrl as pCtrl">
+    <style>
+        .cropArea {
+            background: #E4E4E4;
+            overflow: hidden;
+            width: 100%;
+            height: 464px;
+        }
+    </style>
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header"><span data-translate="PRODUCT"></span></h2>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading"><i class="fa fa-plus color-success"></i> Novo</div>
+                <div class="panel-body">
+                    <form role="form" ng-submit="pCtrl.saveProduct()" method="post" enctype="multipart/form-data">
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="image">Select an image file:</label>
+                                
+                                <div class="cropArea">
+                                    <img-crop image="myImage" area-type="square" result-image-size="250" area-min-size="250" result-image="pCtrl.myCroppedImage"></img-crop>
+                                </div>
+                                <input type="file" ng-model="pCtrl.product.fileInput" name="fileInput" class="form-control" id="fileInput" />
+                                <div>Cropped Image:</div>
+                                <div>
+                                    <img ng-src="{{pCtrl.myCroppedImage}}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nome</label>
+                                <input type="text" ng-model="pCtrl.product.name" class="form-control" id="exampleInputEmail1" placeholder="Nome do produto">
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoria</label>
+                                <select name="categorie" id="categorie" class="form-control" ng-model="pCtrl.product.categorie">
+                                    <option ng-repeat="categorie in pCtrl.allCategories" value="{{categorie._id}}">{{ categorie.name }}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quantity">Quantidade</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control" ng-model="pCtrl.product.quantity" />
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="price">Preço</label>
+                                <input type="number" id="price" name="price" class="form-control" ng-model="pCtrl.product.price" />
+                            </div>
+                            <div class="checkbox">
+                                <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="pCtrl.product.stock" class="md-primary">Ativar controle de estoque?</md-checkbox>
+                            </div>
+                            <div class="form-group">
+                                <label for="descripton">Descrição</label>
+                                <textarea name="description" id="description" class="form-control" rows="4" ng-model="pCtrl.product.description"></textarea>
+                            </div>
+                            
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <md-button type="submit" class="md-raised md-accent btn-w-md" style="margin-bottom:10px; width:100%;">Salvar</md-button>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <md-button class="md-raised btn-w-md md-warn" style="margin-bottom:10px; width:100%;">Cancelar</md-button>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
