@@ -38,6 +38,7 @@ $reverse:               #ffffff;
 $state-default-bg:              #F2F7F7; // also: flat button bg, pagination bg
 $state-default-border:          darken(adjust-hue($state-default-bg, -10), 5%); 
 $state-default-border-light:    #f3f3f3; 
+$white: #fff;
 
 
 //== Scaffolding
@@ -248,7 +249,7 @@ $legend-color:                   $gray-dark !default;
 $legend-border-color:            #e5e5e5 !default;
 
 //** Background color for textual input addons
-$input-group-addon-bg:           $gray-lighter !default;
+$input-group-addon-bg:           $white !default;
 //** Border color for textual input addons
 $input-group-addon-border-color: $input-border !default;
 

@@ -36,16 +36,42 @@
         vm.saveProduct = function(){
             vm.submitted = true;
             // /save/image/base64
-            $http({
-                url: baseUrl + "save/image/base64",
-                method: 'post',
-                data: { base64: vm.myCroppedImage, name: 'teste' },
-                async: false,
-                cache: false
-            }).then(function (response) {
-                console.log(response.data);
-            });
+            console.log(vm.product);
+            // $http({
+            //     url: baseUrl + "save/image/base64",
+            //     method: 'post',
+            //     data: { base64: vm.myCroppedImage, name: 'teste' },
+            //     async: false,
+            //     cache: false
+            // }).then(function (response) {
+            //     console.log(response.data);
+            // });
         }
+
+        
+        let original = angular.copy(vm.product);
+        vm.revert = function () {
+            vm.product = {
+                required: '',
+                minlength: '',
+                maxlength: '',
+                length_rage: '',
+                type_something: '',
+                confirm_type: '',
+                foo: '',
+                email: '',
+                url: '',
+                num: '',
+                minVal: '',
+                maxVal: '',
+                valRange: '',
+                pattern: ''
+            };
+
+            vm.product = angular.copy(original);
+            $scope.myImage = '';
+            return $scope.form.$setPristine();
+        };
 
         vm._listCategories();
     }

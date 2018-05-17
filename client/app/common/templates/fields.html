@@ -1,0 +1,13 @@
+
+<label for="{{ $ctrl.id }}" data-translate="{{ $ctrl.labelTranslate }}" >
+</label>
+<span ng-show="($ctrl.required == true) " class="color-danger">*</span>
+<div class="input-group">
+    <span class="input-group-addon">
+        <i class="fa {{ $ctrl.icon }}"></i>
+    </span>
+    <input ng-model="$ctrl.model" type="{{ $ctrl.type }}" name="{{ $ctrl.id }}" required="{{ $ctrl.required }}" class="form-control" id="{{ $ctrl.id }}" placeholder="{{ $ctrl.placeholderTranslate | translate }}">
+</div>
+<div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty'>
+    <small ng-message="required" class="color-danger" data-translate="REQUIRED_FIELD_MESSAGE"></small>
+</div>

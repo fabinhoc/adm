@@ -11,9 +11,9 @@
     // Chinese:            简体中文 ZH-CN
     // Chinese:            繁体中文 ZH-TW
     // French:             français FR-FR
+    // Portugal:           Portugal PT-BR
 
     // Not used:
-    // Portugal:           Portugal PT-BR
     // Russian:            Русский язык RU-RU
     // German:             Deutsch DE-DE
     // Japanese:           日本語 JA-JP
@@ -28,19 +28,18 @@
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('ptBR');
         $translateProvider.useSanitizeValueStrategy(null);
     }
 
     function LangCtrl($scope, $translate) {
-        $scope.activeLang = 'english';
+        $scope.activeLang = 'brazilian';
         $scope.setLang = setLang;
 
         $scope.langs = [
             'english',
             'spanish',
-            'chinese',
-            'japanese'
+            'brazilian'
         ]
 
         function setLang (lang) {
@@ -51,11 +50,8 @@
                 case 'spanish':
                     $translate.use('es');
                     break;
-                case 'chinese':
-                    $translate.use('zh');
-                    break;
-                case 'japanese':
-                    $translate.use('ja');
+                case 'brazilian':
+                    $translate.use('ptBR');
                     break;
             }
             return $scope.activeLang = lang;
