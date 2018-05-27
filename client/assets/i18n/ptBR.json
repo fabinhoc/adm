@@ -170,5 +170,14 @@
     "PRODUCT": "Produto",
     "NAME": "Nome",
     "PLACEHOLDER_PRODUCT_NAME": "Nome do Produto",
-    "REQUIRED_FIELD_MESSAGE": "* Este campo é obrigatório!"
+    "REQUIRED_FIELD_MESSAGE": "* Este campo é obrigatório!",
+    "QUANTITY": "Quantidade",
+    "PLACEHOLDER_PRODUCT_QUANTITY": "Quantidade",
+    "REQUIRED_FIELD_MINLENGTH": "Este valor é inválido!",
+    "REQUIRED_FIELD_MAXLENGTH": "Este valor é inválido!",
+    "LABEL_CATEGORY": "Categoria",
+    "PLACEHOLDER_SELECT": "Selecione...",
+    "PRICE": "Preço",
+    "PLACEHOLDER_PRODUCT_PRICE": "Preço",
+    "DESCRIPTION": "Descrição"  
 }

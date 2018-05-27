@@ -4,12 +4,13 @@
         bindings: {
             id:'@',
             labelTranslate:'@',
-            required:'=',
             icon:'@',
             placeholderTranslate:'@',
             type:'@',
             reference:'=',
-            model: "="
+            model: "=",
+            required:"=",
+            minlength:"="
         },
         templateUrl: "/app/common/templates/fields.html"
     })

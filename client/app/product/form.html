@@ -32,57 +32,28 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                            <div class="form-group">
-                                <fw-field validate="required" reference="form.name" id="name" model="pCtrl.product.name" label-translate="NAME" placeholder-translate="PLACEHOLDER_PRODUCT_NAME" required="true" icon="fa-font" type="text" form-reference="form"></fw-field>
-                                <!-- <div ng-messages="form.name.$error" multiple ng-if='form.name.$dirty'> -->
-                                
-                                <!-- </div> -->
-                            </div>
+                            <fw-field required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="NAME" placeholder-translate="PLACEHOLDER_PRODUCT_NAME" icon="fa-font" type="text"></fw-field>
+                               
+                            <fw-select required="true" id="category" label-translate="LABEL_CATEGORY" placeholder-translate="PLACEHOLDER_SELECT" reference="form.category" model="pCtrl.product.category" options="pCtrl.allCategories"></fw-select>
                             
+                            <fw-field reference="form.quantity" id="quantity" model="pCtrl.product.quantity" label-translate="QUANTITY" placeholder-translate="PLACEHOLDER_PRODUCT_QUANTITY" icon="fa-list-ol" type="number"></fw-field>
                             
-                            <div class="form-group">
-                                <label for="categoria">Categoria</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-list"></i></span>
-                                    <select name="categorie" id="categorie" class="form-control" ng-model="pCtrl.product.categorie">
-                                        <option ng-repeat="categorie in pCtrl.allCategories" value="{{categorie._id}}">{{ categorie.name }}</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="quantity">Quantidade</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
-                                    <input type="number" id="quantity" name="quantity" class="form-control" ng-model="pCtrl.product.quantity" />
-                                </div>
-                                
-                            </div>
-                        
-                            <div class="form-group">
-                                <label for="price">Preço</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                                    <input type="number" id="price" name="price" class="form-control" ng-model="pCtrl.product.price" />
-                                </div>
-
-                            </div>
+                            <fw-field required="true" reference="form.price" id="price" model="pCtrl.product.price" label-translate="PRICE" placeholder-translate="PLACEHOLDER_PRODUCT_PRICE" icon="fa-money" type="text"></fw-field>
+                           
                             <div class="checkbox">
                                 <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="pCtrl.product.stock" class="md-primary">Ativar controle de estoque?</md-checkbox>
                             </div>
-                            <div class="form-group">
-                                <label for="descripton">Descrição</label>
-                                <textarea name="description" id="description" class="form-control" rows="4" ng-model="pCtrl.product.description"></textarea>
-                            </div>
+
+                            <fw-textarea id="description" label-translate="DESCRIPTION" placeholder-translate="DESCRIPTION" reference="form.description" model="pCtrl.product.description" rows="4"></fw-textarea>
                             
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <md-button type="button" ng-click="pCtrl.saveProduct()" class="md-raised md-accent btn-w-md" style="margin-bottom:10px; width:100%;">Salvar</md-button>
                             </div>
+
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <md-button type="reset" class="md-raised btn-w-md md-warn" ng-click="pCtrl.revert()" style="margin-bottom:10px; width:100%;">Cancelar</md-button>
                             </div>
-                            <div class="divider"></div>
+                            
                         </div>
                     </form>
                 </div>

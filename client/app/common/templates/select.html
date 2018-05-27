@@ -1,0 +1,15 @@
+<div class="form-group">
+    <label for="{{ $ctrl.id }}" data-translate="{{ $ctrl.labelTranslate }}"></label>
+    <span ng-show="($ctrl.required == true)" class="color-danger">*</span>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-list"></i>
+        </span>
+        <select name="{{ $ctrl.id }}" ng-required="{{ $ctrl.required }}" ng-options='obj.value as obj.text for obj in $ctrl.options track by obj.value' id="{{ $ctrl.id }}" class="form-control" ng-model="$ctrl.model" placeholder="{{ $ctrl.placeholderTranslate | translate }}">
+        </select>
+    </div>
+    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty'>
+        <small ng-message="required" class="color-danger" data-translate="REQUIRED_FIELD_MESSAGE"></small>
+        <small ng-message="minlength" class="color-danger" data-translate="REQUIRED_FIELD_MINLENGTH"></small>
+    </div>
+</div>

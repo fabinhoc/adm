@@ -29,7 +29,17 @@
                 async: false,
                 cache: false
             }).then(function(response){
-                vm.allCategories = response.data;
+                
+                let rs = response.data;
+                let rsOptions = [];
+
+                rsOptions = rs.map(obj => {
+                    var rObj = {};
+                    rObj['value'] = obj._id;
+                    rObj['text'] = obj.name;
+                    return rObj;
+                });
+                vm.allCategories = rsOptions;
             });
         }
 
