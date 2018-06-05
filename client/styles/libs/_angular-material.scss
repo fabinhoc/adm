@@ -37,6 +37,38 @@ md-toast {
     }
 }
 
+md-toast {
+    &.md-toast-danger {
+        > .md-toast-content {
+            background-color: $brand-danger;
+        }
+    }
+}
+
+md-toast {
+    &.md-toast-success {
+        > .md-toast-content {
+            background-color: $brand-success;
+        }
+    }
+}
+
+md-toast {
+    &.md-toast-warning {
+        > .md-toast-content {
+            background-color: $brand-warning;
+        }
+    }
+}
+
+md-toast {
+    &.md-toast-info {
+        > .md-toast-content {
+            background-color: $brand-info;
+        }
+    }
+}
+
 
 // Datepicker
 .md-datepicker-calendar-pane .md-datepicker-input-mask {

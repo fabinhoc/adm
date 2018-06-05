@@ -179,5 +179,7 @@
     "PLACEHOLDER_SELECT": "Selecione...",
     "PRICE": "Preço",
     "PLACEHOLDER_PRODUCT_PRICE": "Preço",
-    "DESCRIPTION": "Descrição"  
+    "DESCRIPTION": "Descrição",
+    "CODE": "Código",
+    "PLACEHOLDER_PRODUCT_CODE": "Código identificador"  
 }

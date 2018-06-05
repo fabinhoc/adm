@@ -1,10 +1,11 @@
-<div class="page" ng-controller="ProductCtrl as pCtrl">
+
+<section class="container-fluid with-maxwidth chapter" ng-controller="ProductCtrl as pCtrl">
     <style>
         .cropArea {
             background: #E4E4E4;
             overflow: hidden;
             width: 100%;
-            height: 464px;
+            height: 540px;
         }
     </style>
     <div class="row ui-section">
@@ -13,7 +14,7 @@
         </div>
         <div class="col-md-12">
             <div class="panel panel-default panel-minimal">
-                <div class="divider divider-md"></div>
+                
                 <div class="panel-heading"><i class="fa fa-plus color-success"></i> Novo</div>
                 <div class="panel-body">
                     <form role="form" name="form" class="md-form-login form-validation" ng-submit="pCtrl.saveProduct()" method="post" enctype="multipart/form-data">
@@ -33,6 +34,8 @@
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
                             <fw-field required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="NAME" placeholder-translate="PLACEHOLDER_PRODUCT_NAME" icon="fa-font" type="text"></fw-field>
+                            
+                            <fw-field required="true" reference="form.code" id="code" model="pCtrl.product.code" label-translate="CODE" placeholder-translate="PLACEHOLDER_PRODUCT_CODE" icon="fa-key" type="number"></fw-field>
                                
                             <fw-select required="true" id="category" label-translate="LABEL_CATEGORY" placeholder-translate="PLACEHOLDER_SELECT" reference="form.category" model="pCtrl.product.category" options="pCtrl.allCategories"></fw-select>
                             
@@ -60,4 +63,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>
