@@ -33,24 +33,24 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                            <fw-field required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="NAME" placeholder-translate="PLACEHOLDER_PRODUCT_NAME" icon="fa-font" type="text"></fw-field>
+                            <fw-field form="form" required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="NAME" placeholder-translate="PLACEHOLDER_PRODUCT_NAME" icon="fa-font" type="text"></fw-field>
                             
-                            <fw-field required="true" reference="form.code" id="code" model="pCtrl.product.code" label-translate="CODE" placeholder-translate="PLACEHOLDER_PRODUCT_CODE" icon="fa-key" type="number"></fw-field>
+                            <fw-field form="form" required="true" reference="form.code" id="code" model="pCtrl.product.code" label-translate="CODE" placeholder-translate="PLACEHOLDER_PRODUCT_CODE" icon="fa-key" type="number"></fw-field>
                                
-                            <fw-select required="true" id="category" label-translate="LABEL_CATEGORY" placeholder-translate="PLACEHOLDER_SELECT" reference="form.category" model="pCtrl.product.category" options="pCtrl.allCategories"></fw-select>
+                            <fw-select form="form" required="true" id="category" label-translate="LABEL_CATEGORY" placeholder-translate="PLACEHOLDER_SELECT" reference="form.category" model="pCtrl.product.category" options="pCtrl.allCategories"></fw-select>
                             
-                            <fw-field reference="form.quantity" id="quantity" model="pCtrl.product.quantity" label-translate="QUANTITY" placeholder-translate="PLACEHOLDER_PRODUCT_QUANTITY" icon="fa-list-ol" type="number"></fw-field>
+                            <fw-field form="form" reference="form.quantity" id="quantity" model="pCtrl.product.quantity" label-translate="QUANTITY" placeholder-translate="PLACEHOLDER_PRODUCT_QUANTITY" icon="fa-list-ol" type="number"></fw-field>
                             
-                            <fw-field required="true" reference="form.price" id="price" model="pCtrl.product.price" label-translate="PRICE" placeholder-translate="PLACEHOLDER_PRODUCT_PRICE" icon="fa-money" type="text"></fw-field>
+                            <fw-field form="form" required="true" reference="form.price" id="price" model="pCtrl.product.price" label-translate="PRICE" placeholder-translate="PLACEHOLDER_PRODUCT_PRICE" icon="fa-money" type="text"></fw-field>
                            
                             <div class="checkbox">
                                 <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="pCtrl.product.stock" class="md-primary">Ativar controle de estoque?</md-checkbox>
                             </div>
 
-                            <fw-textarea id="description" label-translate="DESCRIPTION" placeholder-translate="DESCRIPTION" reference="form.description" model="pCtrl.product.description" rows="4"></fw-textarea>
+                            <fw-textarea form="form" id="description" label-translate="DESCRIPTION" placeholder-translate="DESCRIPTION" reference="form.description" model="pCtrl.product.description" rows="4"></fw-textarea>
                             
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <md-button type="button" ng-click="pCtrl.saveProduct()" class="md-raised md-accent btn-w-md" style="margin-bottom:10px; width:100%;">Salvar</md-button>
+                                <md-button  type="button" ng-click="pCtrl.saveProduct()" class="md-raised md-accent btn-w-md ui-wave" style="margin-bottom:10px; width:100%;">Salvar</md-button>
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">

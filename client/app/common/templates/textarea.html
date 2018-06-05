@@ -2,8 +2,8 @@
     <label for="{{ $ctrl.id }}" data-translate="{{ $ctrl.labelTranslate }}"></label>
     <small style="float:right;" class="color-gray-light">{{ $ctrl.model.length ? $ctrl.model.length : 0 }} characters</small>
     <span ng-show="($ctrl.required == true)" class="color-danger">*</span>
-    <textarea name="{{ $ctrl.id }}" id="{{ $ctrl.id }}" class="form-control" rows="{{ $ctrl.rows }}" ng-model="$ctrl.model" placeholder="{{ $ctrl.placeholderTranslate | translate }}"></textarea>
-    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty'>
+    <textarea name="{{ $ctrl.id }}" id="{{ $ctrl.id }}" class="form-control" rows="{{ $ctrl.rows }}" ng-model="$ctrl.model" placeholder="{{ $ctrl.placeholderTranslate | translate }}" ng-required="{{ $ctrl.required }}"></textarea>
+    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty || $ctrl.form.$submitted'>
         <small ng-message="required" class="color-danger" data-translate="REQUIRED_FIELD_MESSAGE"></small>
         <small ng-message="minlength" class="color-danger" data-translate="REQUIRED_FIELD_MINLENGTH"></small>
         <small ng-message="maxlength" class="color-danger" data-translate="REQUIRED_FIELD_MAXLENGTH"></small>

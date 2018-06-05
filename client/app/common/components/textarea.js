@@ -10,7 +10,8 @@
             required: "=",
             minlength: "=",
             maxlength: "=",
-            rows:"@"
+            rows:"@",
+            form:"="
         },
         templateUrl: "/app/common/templates/textarea.html"
     })

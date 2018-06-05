@@ -10,7 +10,8 @@
             reference:'=',
             model: "=",
             required:"=",
-            minlength:"="
+            minlength:"=",
+            form:"="
         },
         templateUrl: "/app/common/templates/fields.html"
     })

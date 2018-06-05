@@ -8,7 +8,7 @@
         <select name="{{ $ctrl.id }}" ng-required="{{ $ctrl.required }}" ng-options='obj.value as obj.text for obj in $ctrl.options track by obj.value' id="{{ $ctrl.id }}" class="form-control" ng-model="$ctrl.model" placeholder="{{ $ctrl.placeholderTranslate | translate }}">
         </select>
     </div>
-    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty'>
+    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty || $ctrl.form.$submitted'>
         <small ng-message="required" class="color-danger" data-translate="REQUIRED_FIELD_MESSAGE"></small>
         <small ng-message="minlength" class="color-danger" data-translate="REQUIRED_FIELD_MINLENGTH"></small>
     </div>

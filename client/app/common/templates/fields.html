@@ -7,7 +7,7 @@
         </span>
         <input ng-model="$ctrl.model" type="{{ $ctrl.type }}" name="{{ $ctrl.id }}" ng-minlength="{{ $ctrl.minlength }}" ng-required="{{ $ctrl.required }}" class="form-control" id="{{ $ctrl.id }}" placeholder="{{ $ctrl.placeholderTranslate | translate }}">
     </div>
-    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty'>
+    <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty || $ctrl.form.$submitted'>
         <small ng-message="required" class="color-danger" data-translate="REQUIRED_FIELD_MESSAGE"></small>
         <small ng-message="minlength" class="color-danger" data-translate="REQUIRED_FIELD_MINLENGTH"></small>
     </div>

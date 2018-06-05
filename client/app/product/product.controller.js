@@ -57,32 +57,37 @@
         // create a new product
         // ========================================================================
         vm.saveProduct = function(){
-            // Toast.addMessageSuccess('ola');
-            vm.submitted = true;
-            // /save/image/base64
-            
-            // $http({
-            //     url: baseUrl + "save/image/base64",
-            //     method: 'post',
-            //     data: { base64: vm.myCroppedImage, name: 'teste' },
-            //     async: false,
-            //     cache: false
-            // }).then(function (response) {
-            //     console.log(response.data);
-            // });
-             $http({
-                url: baseUrl + "products",
-                method: 'post',
-                data: vm.product,
-                async: false,
-                cache: false
-            }).then(function (response) {
-                console.log(response.data);
-            },
-            function(err){
-                var msgs = err.data
-                Toast.addMessageError(msgs.errors);
-            });
+
+            $scope.form.$submitted = true;
+            console.log(vm.product);
+            if($scope.form.$valid){
+
+                $http({
+                    url: baseUrl + "products",
+                    method: 'post',
+                    data: vm.product,
+                    async: false,
+                    cache: false
+                }).then(function (response) {
+                    console.log(response.data);
+                },
+                function(err){
+                    var msgs = err.data
+                    Toast.addMessageError(msgs.errors);
+                });
+
+                if(angular.element(document.querySelector('#fileInput')).val() != ""){
+                    // $http({
+                    //     url: baseUrl + "save/image/base64",
+                    //     method: 'post',
+                    //     data: { base64: vm.myCroppedImage, name: 'teste' },
+                    //     async: false,
+                    //     cache: false
+                    // }).then(function (response) {
+                    //     console.log(response.data);
+                    // });
+                }
+            }
 
         }
         // ========================================================================

@@ -10,6 +10,7 @@
             required: "=",
             minlength: "=",
             options:'=',
+            form:"="
         },
         controller:['$http' ,fwSelectController],
         templateUrl: "/app/common/templates/select.html"        
