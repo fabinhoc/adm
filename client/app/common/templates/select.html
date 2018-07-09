@@ -5,7 +5,7 @@
         <span class="input-group-addon">
             <i class="fa fa-list"></i>
         </span>
-        <select name="{{ $ctrl.id }}" ng-required="{{ $ctrl.required }}" ng-options='obj.value as obj.text for obj in $ctrl.options track by obj.value' id="{{ $ctrl.id }}" class="form-control" ng-model="$ctrl.model" placeholder="{{ $ctrl.placeholderTranslate | translate }}">
+        <select name="{{ $ctrl.id }}" ng-required="{{ $ctrl.required }}" ng-options='obj.value as obj.text for obj in $ctrl.options track by obj.value' id="{{ $ctrl.id }}" ng-value="$ctrl.model" class="form-control" ng-model="$ctrl.model"  placeholder="{{ $ctrl.placeholderTranslate | translate }}">
         </select>
     </div>
     <div ng-messages="$ctrl.reference.$error" multiple ng-if='$ctrl.reference.$dirty || $ctrl.form.$submitted'>

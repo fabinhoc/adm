@@ -12,7 +12,7 @@
                     'form/elements', 'form/layouts', 'form/validation',
                     'chart/echarts', 'chart/echarts-line', 'chart/echarts-bar', 'chart/echarts-pie', 'chart/echarts-scatter', 'chart/echarts-more',
                     'page/404', 'page/500', 'page/blank', 'page/forgot-password', 'page/invoice', 'page/lock-screen', 'page/profile', 'page/signin', 'page/signup',
-                    'app/calendar','product/list'
+                    'app/calendar','product/list',
                 ]
 
                 setRoutes = function(route) {
@@ -41,8 +41,12 @@
                         templateUrl: 'app/product/form.html'
                     })
                     .state('edit', {
-                        url: '/product/edit',
+                        url: '/product/edit/:id',
                         templateUrl: 'app/product/form.html'
+                    })
+                    .state('detail',{
+                        url:'/product/detail/:id',
+                        templateUrl: 'app/product/detail.html'
                     })
                     .state('form/editor', {
                         url: '/form/editor',

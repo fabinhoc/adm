@@ -1,0 +1,368 @@
+<section class="container-fluid with-maxwidth chapter" ng-controller="ProductCtrl as pCtrl">
+
+    <div class="row ui-section">
+
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">
+                <span data-translate="PRODUCT"></span>
+            </h2>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+            <div class="panel panel-default panel-minimal">
+
+                <div class="panel-heading">
+                    <i class="fa fa-info-circle color-success"></i> DETALHES
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <p class="size-h5">Informações</p>
+                        <hr>
+                        <div class="text-left col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                            <p class="size-h5">Nome:</p>
+                            <p class="size-h5">Price:</p>
+                            <p class="size-h5">Code:</p>
+                            <p class="size-h5">Categorie:</p>
+                            <p class="size-h5">Quantidade:</p>
+                            <p class="size-h5">Ativar controle de estoque:</p>
+                        </div>
+                        <div class="text-right col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                            <p>
+                                <strong>{{ pCtrl.product.name }}</strong>
+                            </p>
+                            <p>
+                                <strong>$ {{ pCtrl.product.price }}</strong>
+                            </p>
+                            <p>
+                                <strong>{{ pCtrl.product.code }}</strong>
+                            </p>
+                            <p>
+                                <strong><span ng-repeat="category in pCtrl.allCategories" ng-if="category.value == pCtrl.product.category">{{ category.text }}</span></strong>
+                            </p>
+                            <p>
+                                <strong>{{ pCtrl.product.quantity }}</strong>
+                            </p>
+                            <md-switch ng-model="pCtrl.product.stock" class="pull-right" style="margin-top:-4px;" aria-label="Switch 1"></md-switch>
+                        </div>
+                        <div class="text-left col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <p>Detail:</p>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <p>
+                                <strong>{{ pCtrl.product.description }}</strong>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <p class="size-h5">Imagem</p>
+                        <hr>
+                        <center>
+                            <img fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (pCtrl.product.photo) ? pCtrl.product.photo : 'logo.png' }}" />
+                        </center>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <hr>
+                        <md-button aria-label="pencil" class="md-fab md-primary md-fab-xs">
+                            <span class="fa fa-pencil"></span>
+
+                        </md-button>
+                        <md-button aria-label="trah" class="md-fab md-warn md-fab-xs">
+                            <span class="fa fa-trash"></span>
+
+                        </md-button>
+                        <md-button aria-label="trah" class="md-fab md-accent md-fab-xs pull-right">
+                            <span class="fa fa-image"></span>
+
+                        </md-button>
+
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        <br>
+                        <br>
+                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div data-echarts data-options="pie1.options" style="height: 350px;"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div data-echarts data-options="bar1.options" style="height: 350px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div class="text-left col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                <p>
+                                    <i class="fa fa-history"></i> HISTORY UPDATES
+                                </p>
+                            </div>
+                            <div class="text-right col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                <p>
+                                    <small>Last Update: 12/02/2018 09:08:33</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div data-slim-scroll data-scroll-height="200px">
+                                <div class="table-responsive">
+                                    <table class="table no-margin">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span class="color-success">
+                                                        <i class="fa fa-check-circle"></i>
+                                                    </span> Created</td>
+                                                <td>
+                                                    <span class="label label-success">Created</span>
+                                                </td>
+                                                <td>Product Created</td>
+                                                <td>12/02/2018 09:30:32</td>
+                                                <td>Fabio Cruz</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="color-danger">
+                                                        <i class="fa fa-times-circle"></i>
+                                                    </span> Removed</td>
+                                                <td>
+                                                    <span class="label label-danger">Removed</span>
+                                                </td>
+                                                <td>Product Removed</td>
+                                                <td>12/02/2018 09:30:32</td>
+                                                <td>Fabio Cruz</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="color-info">
+                                                        <i class="fa fa-pencil-square"></i>
+                                                    </span> Updated</td>
+                                                <td>
+                                                    <span class="label label-info">Update</span>
+                                                </td>
+                                                <td>Product Update</td>
+                                                <td>12/02/2018 09:30:32</td>
+                                                <td>Fabio Cruz</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="color-primary">
+                                                        <i class="fa fa-info-circle"></i>
+                                                    </span> Modified</td>
+                                                <td>
+                                                    <span class="label label-primary">System Modified</span>
+                                                </td>
+                                                <td>Product quantiy modified</td>
+                                                <td>12/02/2018 09:30:32</td>
+                                                <td>System</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- <div class="row ui-section">
+    <div class="col-lg-8 clearfix">
+        <h2 class="section-header">
+            <span data-translate="PRODUCT"></span>
+        </h2>
+    </div>
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="panel panel-default panel-minimal">
+
+            <div class="panel-heading">
+                <i class="fa fa-info-circle color-success"></i> DETALHES
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <p class="size-h5">Informações</p>
+                        <hr>
+
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+                        <div class="text-left col-md-6 col-lg-6 col-sm-6 col-xs-6" style="border:1px solid #000000">
+                                    Nome:
+                                </div>
+                                <div class="text-right col-md-6 col-lg-6 col-sm-6 col-xs-6" style="border:1px solid #000000">
+                                    Coca-Cola
+                                </div>
+
+                        <p class="size-h5 text-left">Nome: <div class="text-right"><strong class="text-right">Coca-Cola</strong></div></p>
+                                <p class="size-h5">Price:</p>
+                                <p class="size-h5">Code:</p>
+                                <p class="size-h5">Categorie:</p>
+                                <p class="size-h5">Quantidade:</p>
+                                <p class="size-h5">Ativar controle de estoque:</p>
+
+                        <md-switch class="pull-right" style="margin:0px;" aria-label="Switch 1"></md-switch>
+
+                        </div>
+
+                        <div>
+                            <div class="text-left col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <p>Detail:</p>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <p>
+                                    <strong>alçjkfasdçlj çljasdjlçk ljkçasdfljçk ljkçasdfjlçk ljçkasdflj</strong>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <p class="size-h5">Imagem</p>
+                        <hr>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="display: block;">
+                            <center>
+                                <img src="http://localhost:3003/api/assets/1528245929965.png" />
+                            </center>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <hr>
+                    <md-button aria-label="pencil" class="md-raised md-primary btn-w-md ui-wave">
+                        <span class="fa fa-pencil"></span>
+                        <span>Update</span>
+                    </md-button>
+                    <md-button aria-label="trah" class="md-raised md-warn btn-w-md ui-wave">
+                        <span class="fa fa-trash"></span>
+                        <span>Delete</span>
+                    </md-button>
+                    <md-button aria-label="trah" class="md-raised md-accent btn-w-md ui-wave">
+                        <span class="fa fa-image"></span>
+                        <span>Update image</span>
+                    </md-button>
+
+                </div>
+
+
+                <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                    <br>
+                    <br>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <div data-echarts data-options="pie1.options" style="height: 350px;"></div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <div data-echarts data-options="pie1.options" style="height: 350px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <br>
+                    <br>
+
+                    <div class="text-left col-md-6">
+                        <p>
+                            <i class="fa fa-history"></i> HISTORY UPDATES</p>
+                    </div>
+                    <div class="text-right col-md-6">
+                        <p>
+                            <small>Last Update: 12/02/2018 09:08:33</small>
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="border:none;">
+                        <div class="panel-body ui-map " data-slim-scroll data-scroll-height="200px">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="color-success">
+                                                    <i class="fa fa-check-circle"></i>
+                                                </span> Created</td>
+                                            <td>
+                                                <span class="label label-success">Created</span>
+                                            </td>
+                                            <td>Product Created</td>
+                                            <td>12/02/2018 09:30:32</td>
+                                            <td>Fabio Cruz</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="color-danger">
+                                                    <i class="fa fa-times-circle"></i>
+                                                </span> Removed</td>
+                                            <td>
+                                                <span class="label label-danger">Removed</span>
+                                            </td>
+                                            <td>Product Removed</td>
+                                            <td>12/02/2018 09:30:32</td>
+                                            <td>Fabio Cruz</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="color-info">
+                                                    <i class="fa fa-pencil-square"></i>
+                                                </span> Updated</td>
+                                            <td>
+                                                <span class="label label-info">Update</span>
+                                            </td>
+                                            <td>Product Update</td>
+                                            <td>12/02/2018 09:30:32</td>
+                                            <td>Fabio Cruz</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="color-primary">
+                                                    <i class="fa fa-info-circle"></i>
+                                                </span> Modified</td>
+                                            <td>
+                                                <span class="label label-primary">System Modified</span>
+                                            </td>
+                                            <td>Product quantiy modified</td>
+                                            <td>12/02/2018 09:30:32</td>
+                                            <td>System</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+</section> -->

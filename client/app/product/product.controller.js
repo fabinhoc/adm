@@ -1,28 +1,36 @@
 (function () {
     'use strict';
     
-    angular.module('app.product').controller('ProductCtrl', ['$scope', '$http', '$timeout','Toast', ProductCtrl])
+    angular.module('app.product').controller('ProductCtrl', ['$scope', '$http', '$timeout','Toast', '$stateParams','$location', ProductCtrl])
 
-    function ProductCtrl($scope, $http, $timeout, Toast){
+    function ProductCtrl($scope, $http, $timeout, Toast, $stateParams, $location){
 
         // const variables
         var vm = this;
         const baseUrl = "http://localhost:3003/api/";
+        vm.baseImgUrl = "http://localhost:3003/api/assets/";
 
         // product form
         // ************************************************************************
 
         // image crop
         // ======================================================================
-        vm.myImage = '';
+        $scope.myImage = '';
         vm.myCroppedImage = '';
-
+        $scope.resImgFormat = 'image/png';
+        
         vm.handleFileSelect = function(evt){
             var file = evt.currentTarget.files[0];
+            vm.imgType = evt.currentTarget.files[0].type;
+            
             var reader = new FileReader();
             reader.onload = function (evt) {
-                $scope.$apply(function (vm) {
-                    vm.myImage = evt.target.result;
+
+                console.log(evt)
+
+                $scope.$apply(function ($scope) {
+                    $scope.myImage = evt.target.result;
+                   
                 });
             };
             reader.readAsDataURL(file);
@@ -33,6 +41,7 @@
         // list categories
         // ========================================================================
         vm._listCategories = function(){
+            
             $http({
                 url: baseUrl + "categories",
                 method: 'GET',
@@ -54,42 +63,92 @@
         }
         // ========================================================================
 
+        // list products
+        // ========================================================================
+        vm._listProducts = function(){
+            $http({
+                url: baseUrl + "products",
+                method: 'GET',
+                async: false,
+                cache: false
+            }).then(function(response){
+                let rs = response.data;
+                vm.allProducts = rs;
+                
+            });
+            
+        }
+        // ========================================================================
+
+
         // create a new product
         // ========================================================================
         vm.saveProduct = function(){
-
+           
+            // set form submit
             $scope.form.$submitted = true;
-            console.log(vm.product);
-            if($scope.form.$valid){
+            
+            // name of image
+            
 
-                $http({
-                    url: baseUrl + "products",
-                    method: 'post',
-                    data: vm.product,
-                    async: false,
-                    cache: false
-                }).then(function (response) {
-                    console.log(response.data);
+            if($scope.form.$valid){
+                            
+                if(angular.element(document.querySelector('#fileInput')).val() != ""){
+                    
+                    var name = Date.now();
+                    var ext = '';
+                    ext = vm.imgType.split("/");
+                    ext = ext[1];
+                         
+                    vm.product.photo = name +'.png';
+                    
+
+                    $http({
+                        url: baseUrl + "save/image/base64",
+                        method: 'post',
+                        data: { base64: vm.myCroppedImage, name: name },
+                        async: false,
+                        cache: false
+                    }).then(function (response) {
+                        console.log(response);
+                        vm.product.photo = response.data.imageinfo.fileName;
+                        // Toast.addMessageSuccess("Sucesso!");
+                    }, function(err){
+                        var msgs = err.data
+                        Toast.addMessageError(msgs.errors);
+                    });
+                }                
+                
+                if ($stateParams.id) {
+                    var http = _edit()
+                } else {
+                    var htpp = _create()
+                }
+                http.then(function (response) {
+                    Toast.addMessageSuccess("Sucesso!");
+                    if ($stateParams.id) { 
+                        vm._findProduct()
+                    } else {
+                        vm.revert();
+                    }
                 },
                 function(err){
                     var msgs = err.data
                     Toast.addMessageError(msgs.errors);
                 });
-
-                if(angular.element(document.querySelector('#fileInput')).val() != ""){
-                    // $http({
-                    //     url: baseUrl + "save/image/base64",
-                    //     method: 'post',
-                    //     data: { base64: vm.myCroppedImage, name: 'teste' },
-                    //     async: false,
-                    //     cache: false
-                    // }).then(function (response) {
-                    //     console.log(response.data);
-                    // });
-                }
             }
 
         }
+
+        function _create(){
+            return $http.post(baseUrl + "products", vm.product)
+        }
+
+        function _edit(){
+            var id = $stateParams.id;
+            return $http.put(baseUrl + "products/"+id, vm.product)
+        }
+
         // ========================================================================
 
         // reset form
@@ -129,11 +188,11 @@
         // config
         // ========================================================================
         vm.selected = [];
-        vm.limitOptions = [5, 10, 15];
+        vm.limitOptions = [15, 20, 35, 50, 100, 200, 300, 400, 800, 1000];
 
         vm.options = {
             rowSelection: true,
-            multiSelect: true,
+            multiSelect: false,
             autoSelect: true,
             decapitate: false,
             largeEditDialog: false,
@@ -144,132 +203,146 @@
 
         vm.query = {
             order: 'name',
-            limit: 5,
+            limit: 15,
             page: 1
         };
         // ========================================================================
 
-        // data
-        // ========================================================================
-        vm.desserts = {
-            "count": 9,
-            "data": [
-                {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Ice cream sandwich",
-                    "type": "Ice cream",
-                    "calories": { "value": 237.0 },
-                    "fat": { "value": 9.0 },
-                    "carbs": { "value": 37.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 129.0 },
-                    "calcium": { "value": 8.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Ice cream sandwich",
-                    "type": "Ice cream",
-                    "calories": { "value": 237.0 },
-                    "fat": { "value": 9.0 },
-                    "carbs": { "value": 37.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 129.0 },
-                    "calcium": { "value": 8.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Ice cream sandwich",
-                    "type": "Ice cream",
-                    "calories": { "value": 237.0 },
-                    "fat": { "value": 9.0 },
-                    "carbs": { "value": 37.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 129.0 },
-                    "calcium": { "value": 8.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Ice cream sandwich",
-                    "type": "Ice cream",
-                    "calories": { "value": 237.0 },
-                    "fat": { "value": 9.0 },
-                    "carbs": { "value": 37.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 129.0 },
-                    "calcium": { "value": 8.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }
-            ]
-        };
+        
         // ========================================================================
 
         // data table functions
         // ========================================================================
         vm.loadStuff = function () {
             vm.promise = $timeout(function () {
-                // loading
+
+                vm._listProducts();
             }, 2000);
         }
 
         vm.toggleLimitOptions = function () {
-            vm.limitOptions = vm.limitOptions ? undefined : [5, 10, 15];
+            vm.limitOptions = vm.limitOptions ? undefined : [15, 20, 35, 50, 100, 200, 300, 400, 800, 1000];
+        };
+
+        vm.logItem = function (item) {
         };
         // ========================================================================
 
-        // ************************************************************************
+        // ========================================================================
 
+        // ************************************************************************
+        vm._findProduct = function(){
+            var id = $stateParams.id;
+            if(id){
+                $http({
+                    url: baseUrl + "products/",
+                    method: 'GET',
+                    params: {_id:id},
+                    async: false,
+                    cache: false
+                }).then(function(response){
+                    console.log(response.data);
+                    vm.product = response.data[0]
+                    $scope.myImage = "http://localhost:3003/api/assets/"+response.data[0].photo
+                });
+            }
+
+        }
+
+        // ========================================================================
+
+        // ************************************************************************
+        $scope.pie1 = {};
+        $scope.bar1 = {};
+        $scope.pie1.options = {
+            title : {
+                text: 'Last Month',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data:['Week 1','Week 2','Week 3','Week 4']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    restore : {show: true, title: "restore"},
+                    saveAsImage : {show: true, title: "save as image"}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'Sales Month',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:335, name:'Week 1'},
+                        {value:310, name:'Week 2'},
+                        {value:234, name:'Week 3'},
+                        {value:135, name:'Week 4'}
+                    ]
+                }
+            ]
+        };
+        $scope.bar1.options = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['Anual Sales']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    restore : {show: true, title: "restore"},
+                    saveAsImage : {show: true, title: "save as image"}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'Anual Sales',
+                    type:'bar',
+                    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 362.2, 32.6, 20.0, 6.4, 3.3],
+                    markPoint : {
+                        data : [
+                            {type : 'max', name: 'Max'},
+                            {type : 'min', name: 'Min'}
+                        ]
+                    },
+                    markLine : {
+                        data : [
+                            {type : 'average', name: 'Average'}
+                        ]
+                    }
+                }
+            ]
+        };
         //-------------------------------------------------------------------------
 
         // execute functions
         // ************************************************************************
         vm._listCategories();
-
+        vm._listProducts();
+        vm._findProduct();
         // ************************************************************************
     }
 })()

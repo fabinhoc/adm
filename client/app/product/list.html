@@ -19,56 +19,68 @@
                             </md-button>
                         </div>
                     </md-toolbar>
-
+                   
                     <md-table-container>
                         <table md-table md-row-select="pCtrl.options.rowSelection" multiple="{{pCtrl.options.multiSelect}}" ng-model="pCtrl.selected"
                             md-progress="pCtrl.promise">
                             <thead ng-if="!pCtrl.options.decapitate" md-head md-order="pCtrl.query.order" md-on-reorder="pCtrl.logOrder">
                                 <tr md-row>
-                                    <th md-column md-order-by="name">
-                                        <span>Dessert (100g serving)</span>
+                                    <th md-column md-numeric md-order-by="_id" hide-gt-xs show-gt-lg>
+                                        <span>Id</span>
                                     </th>
-                                    <th md-column md-order-by="type">
-                                        <span>Type</span>
+                                    <th></th>
+                                    <th md-column md-order-by="code">
+                                        <span>Code</span>
                                     </th>
-                                    <th md-column md-numeric md-order-by="calories.value" md-desc>
-                                        <span>Calories</span>
+                                    <th md-column md-numeric md-order-by="name" md-desc>
+                                        <span>Name</span>
                                     </th>
-                                    <th md-column md-numeric md-order-by="fat.value">
-                                        <span>Fat (g)</span>
+                                    <th md-column md-numeric md-order-by="category">
+                                        <span>Categoria</span>
                                     </th>
-                                    <th md-column md-numeric md-order-by="carbs.value">
-                                        <span>Carbs (g)</span>
+                                    <th md-column md-numeric md-order-by="quantity">
+                                        <span>Quantidade</span>
                                     </th>
-                                    <th md-column md-numeric md-order-by="protein.value">
-                                        <span>Protein (g)</span>
+                                    <th md-column md-numeric md-order-by="price">
+                                        <span>Preço</span>
                                     </th>
-                                    <th md-column md-numeric md-order-by="iron.value" hide-gt-xs show-gt-lg>
-                                        <span>Iron (%)</span>
-                                    </th>
-                                    <th md-column md-order-by="comment">
-                                        <md-icon>comments</md-icon>
-                                        <span>Comments</span>
+                                    <th md-column>
+                                        <span>Action </i></span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="pCtrl.options.autoSelect" ng-disabled="pCtrl.dessert.calories.value > 400"
-                                    ng-repeat="dessert in pCtrl.desserts.data | filter: filter.search | orderBy: pCtrl.query.order | limitTo: pCtrl.query.limit : (pCtrl.query.page -1) * pCtrl.query.limit">
-                                    <td md-cell>{{dessert.name}}</td>
-                                    <td md-cell>{{dessert.calories.value}}</td>
-                                    <td md-cell>{{dessert.fat.value | number: 2}}</td>
-                                    <td md-cell>{{dessert.carbs.value}}</td>
-                                    <td md-cell>{{dessert.protein.value | number: 2}}</td>
-                                    <td md-cell hide-gt-xs show-gt-lg>{{dessert.iron.value}}%</td>
-                                    <td md-cell ng-click="editComment($event, dessert)" ng-class="{'md-placeholder': !dessert.comment}">
-                                        {{dessert.comment || 'Add a comment'}}
+                                <tr md-row md-select="product" md-on-select="pCtrl.logItem" md-auto-select="pCtrl.options.autoSelect" ng-repeat="product in pCtrl.allProducts | filter: filter.search | orderBy: pCtrl.query.order | limitTo: pCtrl.query.limit : (pCtrl.query.page -1) * pCtrl.query.limit">
+                                    <td md-cell hide-gt-xs show-gt-lg>{{ product._id }}</td>
+                                    <td md-cell><div style="width:82px;">
+                                        <img style="display: block; margin: 0 auto;" fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (product.photo) ? product.photo : 'logo.png' }}" width="40" /></div>
+                                    </td>
+                                    <td md-cell>{{product.code}}</td>
+                                    <td md-cell>{{product.name}}</td>
+                                    <td md-cell>
+                                        <span ng-repeat="category in pCtrl.allCategories" ng-if="category.value == product.category">{{ category.text }}</span>
+                                    </td>
+                                    <td md-cell>{{product.quantity}}</td>
+                                    <td md-cell>{{product.price}}</td>
+                                    <td md-cell>
+                                        <div style="width:115px;" ng-if="pCtrl.selected[0]._id == product._id">
+                                            <md-button ng-href="#!/product/edit/{{ product._id }}" aria-label="pencil" class="md-fab md-primary md-fab-xs">
+                                                <span class="fa fa-pencil"></span>
+                                            </md-button>
+                                            <md-button ng-href="#!/product/detail/{{ product._id }}" aria-label="search" class="md-fab md-accent md-fab-xs">
+                                                <span class="fa fa-search"></span>
+                                            </md-button>
+                                            <md-button aria-label="trah" class="md-fab md-warn md-fab-xs">
+                                                <span class="fa fa-trash"></span>
+                                            </md-button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </md-table-container>
-                    <md-table-pagination md-limit="pCtrl.query.limit" md-limit-options="pCtrl.limitOptions" md-page="pCtrl.query.page" md-total="{{pCtrl.desserts.count}}" md-page-select="pCtrl.options.pageSelect" md-boundary-links="pCtrl.options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                    <md-table-pagination md-limit="pCtrl.query.limit" md-limit-options="pCtrl.limitOptions" md-page="pCtrl.query.page" md-total="{{pCtrl.allProducts.count}}"
+                        md-page-select="pCtrl.options.pageSelect" md-boundary-links="pCtrl.options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
                 </md-card>
             </article>
 
