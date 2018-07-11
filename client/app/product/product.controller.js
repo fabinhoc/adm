@@ -1,10 +1,16 @@
 (function () {
     'use strict';
     
-    angular.module('app.product').controller('ProductCtrl', ['$scope', '$http', '$timeout','Toast', '$stateParams','$location', ProductCtrl])
+    angular
+            .module('app.product')
+            .controller('ProductCtrl', ProductCtrl);
 
-    function ProductCtrl($scope, $http, $timeout, Toast, $stateParams, $location){
+    ProductCtrl.$inject = ['$scope', '$http', '$timeout','Toast', '$stateParams','HttpFactory','ObjectDiff','$translate','Log'];
 
+    function ProductCtrl($scope, $http, $timeout, Toast, $stateParams, HttpFactory, ObjectDiff, $translate, Log){
+        
+        const usedLang = $translate.use();
+        
         // const variables
         var vm = this;
         const baseUrl = "http://localhost:3003/api/";
@@ -66,12 +72,7 @@
         // list products
         // ========================================================================
         vm._listProducts = function(){
-            $http({
-                url: baseUrl + "products",
-                method: 'GET',
-                async: false,
-                cache: false
-            }).then(function(response){
+            HttpFactory.findAll().then(function(response){
                 let rs = response.data;
                 vm.allProducts = rs;
                 
@@ -87,10 +88,7 @@
            
             // set form submit
             $scope.form.$submitted = true;
-            
-            // name of image
-            
-
+           
             if($scope.form.$valid){
                             
                 if(angular.element(document.querySelector('#fileInput')).val() != ""){
@@ -102,34 +100,104 @@
                          
                     vm.product.photo = name +'.png';
                     
+                    var dataValue = { base64: vm.myCroppedImage, name: name };
 
-                    $http({
-                        url: baseUrl + "save/image/base64",
-                        method: 'post',
-                        data: { base64: vm.myCroppedImage, name: name },
-                        async: false,
-                        cache: false
-                    }).then(function (response) {
-                        console.log(response);
+                    HttpFactory.saveImage(dataValue).then(function (response) {
+
                         vm.product.photo = response.data.imageinfo.fileName;
-                        // Toast.addMessageSuccess("Sucesso!");
+
                     }, function(err){
                         var msgs = err.data
                         Toast.addMessageError(msgs.errors);
                     });
                 }                
                 
-                if ($stateParams.id) {
-                    var http = _edit()
-                } else {
-                    var htpp = _create()
-                }
-                http.then(function (response) {
+                HttpFactory.save(vm.product, $stateParams.id).then(function (response) {
+                    
                     Toast.addMessageSuccess("Sucesso!");
                     if ($stateParams.id) { 
-                        vm._findProduct()
+                        vm._findProduct();
+
+                        HttpFactory.find($stateParams.id).then(function(response){
+                            var diff = ObjectDiff.diffOwnProperties(response.data[0], vm.product);
+                            
+                            if(diff.changed != "equal")
+                            {
+                                var objectDifferent = [];
+                                objectDifferent = diff.value;
+                                for(var obj in objectDifferent){
+                                    
+                                    if (objectDifferent[obj].changed == "primitive change") {
+                                        
+                                        var match = obj;
+                                        var newVal = objectDifferent[obj].added;
+                                        var oldVal = objectDifferent[obj].removed;
+            
+                                        let response = HttpFactory.jsonSchema()
+                                        let rs = [];
+                                        
+                                        rs = response[usedLang];
+                                        var field = rs[match].label;
+                                        
+                                        switch(usedLang){
+                                            case 'ptBR':
+                                                var msg = field +": alterado de "+ oldVal + " para "+ newVal; 
+                                                break;
+                                            case 'en':
+                                                var msg = field +": changed from "+ oldVal + " to "+ newVal; 
+                                                break;
+                                            case 'es':
+                                                var msg = field +": cambiado de "+ oldVal + " a "+ newVal; 
+                                                break;
+                                            default:
+                                                var msg = field +": alterado de "+ oldVal + " para "+ newVal; 
+                                                break;
+                                        }
+                                        
+                                        var data = [];
+                                        data = {"reference" : "products", 
+                                                "action"    : "update", 
+                                                "icon"      : "fa-pencil-square",
+                                                "element"   : $stateParams.id,
+                                                "message"   : msg }
+                                        Log.save(data).then(function(response){
+                                            console.log(response);
+                                        });
+                                        
+            
+            
+                                    }
+            
+                                }
+                            }
+                        })
+
                     } else {
                         vm.revert();
+
+                        switch(usedLang){
+                            case 'ptBR':
+                                var msg = "criado com sucesso"; 
+                                break;
+                            case 'en':
+                                var msg = "created has been success"; 
+                                break;
+                            case 'es':
+                                var msg = "creado con éxito"; 
+                                break;
+                            default:
+                                var msg = "criado com sucesso"; 
+                                break;
+                        }
+                        var data = [];
+                        data = {"reference" : "products", 
+                                "action"    : "create", 
+                                "icon"      : "fa-check-circle",
+                                "element"   : response.data._id,
+                                "message"   : msg }
+                        Log.save(data).then(function(response){
+                            console.log(response);
+                        });
                     }
                 },
                 function(err){
@@ -138,15 +206,6 @@
                 });
             }
 
-        }
-
-        function _create(){
-            return $http.post(baseUrl + "products", vm.product)
-        }
-
-        function _edit(){
-            var id = $stateParams.id;
-            return $http.put(baseUrl + "products/"+id, vm.product)
         }
 
         // ========================================================================
@@ -215,7 +274,6 @@
         // ========================================================================
         vm.loadStuff = function () {
             vm.promise = $timeout(function () {
-
                 vm._listProducts();
             }, 2000);
         }
@@ -234,14 +292,7 @@
         vm._findProduct = function(){
             var id = $stateParams.id;
             if(id){
-                $http({
-                    url: baseUrl + "products/",
-                    method: 'GET',
-                    params: {_id:id},
-                    async: false,
-                    cache: false
-                }).then(function(response){
-                    console.log(response.data);
+                HttpFactory.find(id).then(function(response){
                     vm.product = response.data[0]
                     $scope.myImage = "http://localhost:3003/api/assets/"+response.data[0].photo
                 });

@@ -19,6 +19,7 @@
 
         // img crop
         ,'ngImgCrop'
+        ,'ds.objectDiff'
     ]);
 
 })();

@@ -23,7 +23,8 @@
     "angular-wizard": "~1.1.1",
     "ngECharts": "ngecharts#^0.2.0",
     "ngmap": "~1.18.4",
-    "ng-img-crop": "ngImgCrop#^0.3.2"
+    "ng-img-crop": "ngImgCrop#^0.3.2",
+    "angular-object-diff": "^1.0.3"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.0"
