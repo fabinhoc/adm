@@ -181,5 +181,6 @@
     "PLACEHOLDER_PRODUCT_PRICE": "Preço",
     "DESCRIPTION": "Descrição",
     "CODE": "Código",
-    "PLACEHOLDER_PRODUCT_CODE": "Código identificador"  
+    "PLACEHOLDER_PRODUCT_CODE": "Código identificador",
+    "REQUESTS": "Pedidos"  
 }

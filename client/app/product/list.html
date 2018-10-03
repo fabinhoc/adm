@@ -19,13 +19,13 @@
                             </md-button>
                         </div>
                     </md-toolbar>
-                   
+
                     <md-table-container>
                         <table md-table md-row-select="pCtrl.options.rowSelection" multiple="{{pCtrl.options.multiSelect}}" ng-model="pCtrl.selected"
                             md-progress="pCtrl.promise">
                             <thead ng-if="!pCtrl.options.decapitate" md-head md-order="pCtrl.query.order" md-on-reorder="pCtrl.logOrder">
                                 <tr md-row>
-                                    <th md-column md-numeric md-order-by="_id" hide-gt-xs show-gt-lg>
+                                    <th md-column md-numeric md-order-by="_id" hide>
                                         <span>Id</span>
                                     </th>
                                     <th></th>
@@ -45,15 +45,19 @@
                                         <span>Preço</span>
                                     </th>
                                     <th md-column>
-                                        <span>Action </i></span>
+                                        <span>Action </i>
+                                        </span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody md-body>
                                 <tr md-row md-select="product" md-on-select="pCtrl.logItem" md-auto-select="pCtrl.options.autoSelect" ng-repeat="product in pCtrl.allProducts | filter: filter.search | orderBy: pCtrl.query.order | limitTo: pCtrl.query.limit : (pCtrl.query.page -1) * pCtrl.query.limit">
-                                    <td md-cell hide-gt-xs show-gt-lg>{{ product._id }}</td>
-                                    <td md-cell><div style="width:82px;">
-                                        <img style="display: block; margin: 0 auto;" fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (product.photo) ? product.photo : 'logo.png' }}" width="40" /></div>
+                                    <td md-cell hide>{{ product._id }}</td>
+                                    <td md-cell>
+                                        <div style="width:82px;">
+                                            <img style="display: block; margin: 0 auto;" fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (product.photo) ? product.photo : 'logo.png' }}"
+                                                width="40" />
+                                        </div>
                                     </td>
                                     <td md-cell>{{product.code}}</td>
                                     <td md-cell>{{product.name}}</td>
@@ -63,7 +67,61 @@
                                     <td md-cell>{{product.quantity}}</td>
                                     <td md-cell>{{product.price}}</td>
                                     <td md-cell>
-                                        <div style="width:115px;" ng-if="pCtrl.selected[0]._id == product._id">
+                                        <md-menu>
+                                            <md-button aria-label="Open menu with custom trigger" class="btn-w-md md-button md-ink-ripple" ng-mouseenter="$mdMenu.open()">
+                                                <div class="pull-left">Action</div>
+                                                <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+                                            </md-button>
+                                            <!-- <md-button aria-label="Open menu with custom trigger" class="btn-w-md" ng-mouseenter="$mdMenu.open()">Action</md-button><div class="divider"></div> -->
+                                            <md-menu-content ng-mouseleave="$mdMenu.close()" style="width: 150px;">
+                                                <md-menu-item>
+                                                    <md-button ng-href="#!/product/edit/{{ product._id }}">
+                                                        <div style="margin-top: 10px;">
+                                                            <span class="fa fa-pencil color-primary"></span> &nbsp;
+                                                            <span>Edit</span>
+                                                        </div>
+                                                    </md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                    <md-button ng-href="#!/product/detail/{{ product._id }}">
+                                                        <div style="margin-top: 10px;">
+                                                            <span class="fa fa-search color-info"></span> &nbsp;
+                                                            <span>Detail</span>
+                                                        </div>
+                                                    </md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                    <md-button>
+                                                        <div style="margin-top: 5px;">
+                                                            <span class="fa fa-trash color-danger"></span> &nbsp;
+                                                            <span>Delete</span>
+                                                        </div>
+                                                    </md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+
+                                        <!-- <md-select ng-model="select.action" placeholder="Actions">
+                                            <md-option ng-href="#!/product/edit/{{ product._id }}">
+                                                <md-button ng-href="#!/product/edit/{{ product._id }}" aria-label="pencil" class="md-icon-button md-primary">
+                                                    <span class="fa fa-pencil"></span>
+                                                </md-button>
+                                                Edit
+                                            </md-option>
+                                            <md-option ng-href="#!/product/detail/{{ product._id }}">
+                                                <md-button ng-href="#!/product/detail/{{ product._id }}" aria-label="search" class="md-icon-button md-accent">
+                                                    <span class="fa fa-search"></span>
+                                                </md-button>
+                                                Detail
+                                            </md-option>
+                                            <md-option>
+                                                <md-button aria-label="trah" class="md-icon-button md-warn">
+                                                    <span class="fa fa-trash"></span>
+                                                </md-button>
+                                                Delete
+                                            </md-option>
+                                        </md-select> -->
+                                        <!-- <div style="width:115px;" ng-if="pCtrl.selected[0]._id == product._id">
                                             <md-button ng-href="#!/product/edit/{{ product._id }}" aria-label="pencil" class="md-fab md-primary md-fab-xs">
                                                 <span class="fa fa-pencil"></span>
                                             </md-button>
@@ -73,7 +131,7 @@
                                             <md-button aria-label="trah" class="md-fab md-warn md-fab-xs">
                                                 <span class="fa fa-trash"></span>
                                             </md-button>
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>
                             </tbody>

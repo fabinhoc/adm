@@ -11,7 +11,8 @@
             model: "=",
             required:"=",
             minlength:"=",
-            form:"="
+            form:"=",
+            disable:"="
         },
         templateUrl: "/app/common/templates/fields.html"
     })

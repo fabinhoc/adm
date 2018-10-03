@@ -1,0 +1,212 @@
+<article class="article" ng-controller="ProductCtrl as pCtrl">
+
+    <section class="container-fluid with-maxwidth chapter">
+
+        <div class="row ui-section">
+            <div class="col-lg-8 clearfix">
+                <h2 class="section-header"></h2>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+                <md-card class="no-margin-h">
+
+                    <div class="col-md-12">
+                        <h3>Mesa 5</h3>
+                        <i class="fa fa-clock-o"></i>
+
+                        <small>20:30h</small>
+
+                        <i class="fa fa-user"></i>
+                        <small>Fabio Cruz</small>
+                        
+                    </div>
+
+                    
+                    <div class="divider"></div>
+                    
+                    <hr>
+                    
+                    <div class="panel panel-default panel-minimal no-border">
+                        
+                        
+                            <button class="btn btn-primary pull-right " style="margin-left:3px;"><i class="fa fa-gavel"></i></button> 
+                            
+                            <button class="btn btn-warning pull-right"><i class="fa fa-undo"></i></button> 
+                        
+                        <div class="panel-heading">
+                            <i class="fa fa-shopping-basket color-gray"></i> Pedido
+                        </div>
+                        <div class="panel-body">
+
+                            <section class="table-flip-scroll">
+
+                                    <table class="table cf no-margin">
+                                            <thead class="cf">
+                                                <tr>
+                                                    <th><md-checkbox></md-checkbox></th>
+                                                    <th style="min-height: 73px"><md-icon aria-label="Open Chat" class="color-gray-lighter material-icons">image</md-icon></th>
+                                                    <th style="min-height: 73px" class="numeric">Produto</th>
+                                                    <th style="min-height: 73px" class="numeric">Preço</th>
+                                                    <th style="min-height: 73px" class="numeric">Ações</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><md-checkbox></md-checkbox></td>
+                                                    <td style="min-height: 73px; max-width: 50px;">
+                                                        
+                                                        <img fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (product.photo) ? product.photo : 'logo.png' }}"
+                                                                width="40" />
+                                                        
+                                                    </td>
+                                                    
+                                                    <td style="min-height: 73px; min-width: 250px">Gugu Loso</td>
+                                                    <td style="min-height: 73px" class="numeric">R$ 29,00</td>
+                                                    <td style="min-height: 73px">
+                                                        
+                                                        <md-icon aria-label="Open Chat" ng-click="" class="color-gray-light material-icons">comment</md-icon>
+                                                        <md-icon aria-label="Open Chat" ng-click="" class="color-primary material-icons">edit_circle</md-icon>
+                                                        <md-icon aria-label="Open Chat" ng-click="" class="color-danger material-icons">delete_forever</md-icon>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                        <td><md-checkbox></md-checkbox></td>
+                                                        <td style="min-height: 73px; max-width: 50px;">
+                                                            
+                                                            <img fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (product.photo) ? product.photo : 'logo.png' }}"
+                                                                    width="40" />
+                                                            
+                                                        </td>
+                                                        
+                                                        <td style="min-height: 73px; min-width: 250px">Gugu Loso</td>
+                                                        <td style="min-height: 73px" class="numeric">R$ 29,00</td>
+                                                        <td style="min-height: 73px">
+                                                            
+                                                            <a><md-icon aria-label="Open Chat" ng-click="" class="color-gray-light material-icons">comment</md-icon></a>
+                                                            <md-icon aria-label="Open Chat" ng-click="" class="color-primary material-icons">edit_circle</md-icon>
+                                                            <md-icon aria-label="Open Chat" ng-click="" class="color-danger material-icons">delete_forever</md-icon>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                            </section>
+
+                        </div>
+    
+                    </div>
+
+                    <div class="panel panel-default panel-minimal no-border">
+
+                        <div class="panel-heading">
+                            <i class="fa fa-dollar color-gray"></i> Receber
+                        </div>
+
+                        <div class="panel-body">
+                            <form role="form" name="form" class="md-form-login form-validation" ng-submit="pCtrl.saveProduct()" method="post" enctype="multipart/form-data"> 
+                                
+                                <div class="col-md-6" style="border-right:1px solid #ccc;">
+                                    <div class="col-md-12">
+                                        <fw-field form="form" required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="Valor" placeholder-translate="Valor" icon="fa-dollar" type="text"></fw-field>
+                                    </div>
+
+                                    <!-- <div class="col-md-12">
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <fw-field form="form" required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="Codigo" placeholder-translate="" icon="fa-key" type="text"></fw-field>
+                                            </div>
+                                            <div class="col-md-9">
+    
+                                                <fw-select form="form" required="true" id="category" label-translate="LABEL_CATEGORY" placeholder-translate="PLACEHOLDER_SELECT" reference="form.category" model="pCtrl.product.category" options="pCtrl.allCategories"></fw-select>
+                                            </div>
+                                        </div>
+
+                                    </div> -->
+                                    
+                                    <div class="col-md-12">
+                                        <fw-field form="form" required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="Desconto" placeholder-translate="Desconto" icon="fa-percent" type="text"></fw-field>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <fw-field form="form" required="true" reference="form.name" id="name" model="pCtrl.product.name" label-translate="Subtotal" placeholder-translate="Subtotal" icon="fa-dollar" disable="true" type="text"></fw-field>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="md-raised btn-w-md btn btn-success"><span class="fa fa-plus-circle"></span> Add</button>
+                                        <button class="md-raised btn-w-md btn btn-warning"><span class="fa fa-remove"></span> Limpar</button><div class="divider"></div>
+                                    </div>
+
+                                </div>
+                                
+
+                                <div class="col-md-6">
+
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default" data-slim-scroll data-scroll-height="176px">
+                                            <div class="panel-body">
+                                                <md-list class="ui-material-list">
+                                                        
+                                                    <md-list-item style="border-bottom:1px solid #eee;">
+                                                        <md-checkbox></md-checkbox>
+                                                        <md-icon aria-label="Open Chat" ng-click="" class="color-success material-icons pull-left">credit_card</md-icon>
+                                                        <p>R$ 250,00</p>
+                                                        <a><md-icon aria-label="Open Chat" ng-click="" class="color-gray-light material-icons">comment</md-icon></a>
+                                                        <md-icon aria-label="Open Chat" ng-click="" class="color-danger material-icons">delete_forever</md-icon>
+                                                        
+                                                    </md-list-item>
+                                                    <md-list-item style="border-bottom:1px solid #eee;"> 
+                                                            <md-checkbox></md-checkbox>
+                                                            <md-icon aria-label="Open Chat" ng-click="" class="color-success material-icons pull-left">attach_money</md-icon>
+                                                            <p>R$ 250,00 <small>+ R$4,00 desconto</small></p>
+                                                            <a><md-icon aria-label="Open Chat" ng-click="" class="color-gray-light material-icons">comment</md-icon></a>
+                                                            <md-icon aria-label="Open Chat" ng-click="" class="color-danger material-icons">delete_forever</md-icon>
+                                                        </md-list-item>
+                                                </md-list>                           
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+
+                                                <div class="well well-sm">
+                                                    <span>Total:</span>
+                                                    <p class="pull-right"><b>R$ 250,00</b></p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button class="md-raised btn-w-md btn btn-info"><span class="fa fa-save"></span> Salvar</button>
+                                            <button class="md-raised btn-w-md btn btn-danger"><span class="fa fa-remove"></span> Cancelar</button>
+                                            
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    
+
+                                </div>
+                                
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </md-card>
+
+                
+
+            </div>
+            
+        </div>
+
+    </section>
+
+</article>

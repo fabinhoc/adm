@@ -19,7 +19,43 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <p class="size-h5">Informações</p>
                         <hr>
-                        <div class="text-left col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                        <md-list>
+                            <md-list-item>
+                                <p> Nome: </p>
+                                <strong>{{ pCtrl.product.name }}</strong>
+                            </md-list-item>
+                            <md-list-item>
+                                <p> Price: </p>
+                                <strong>{{ pCtrl.product.price }}</strong>
+                            </md-list-item>
+                            <md-list-item>
+                                <p> Code: </p>
+                                <strong>{{ pCtrl.product.code }}</strong>
+                            </md-list-item>
+                            <md-list-item>
+                                <p> Category: </p>
+                                <strong>
+                                    <span ng-repeat="category in pCtrl.allCategories" ng-if="category.value == pCtrl.product.category">{{ category.text }}</span>
+                                </strong>
+                            </md-list-item>
+                            <md-list-item>
+                                <p> Quantity: </p>
+                                <strong>{{ pCtrl.product.quantity }}</strong>
+                            </md-list-item>
+                            <md-list-item>
+                                <p> Ativar controle de estoque:: </p>
+                                <md-switch ng-model="pCtrl.product.stock" aria-label="Switch 1"></md-switch>
+                            </md-list-item>
+                        </md-list>
+                        <div class="text-left col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <p>Detail:</p>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <p>
+                                <strong>{{ pCtrl.product.description }}</strong>
+                            </p>
+                        </div>
+                        <!-- <div class="text-left col-md-6 col-lg-6 col-sm-6 col-xs-6">
                             <p class="size-h5">Nome:</p>
                             <p class="size-h5">Price:</p>
                             <p class="size-h5">Code:</p>
@@ -52,7 +88,7 @@
                             <p>
                                 <strong>{{ pCtrl.product.description }}</strong>
                             </p>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -60,7 +96,8 @@
                         <p class="size-h5">Imagem</p>
                         <hr>
                         <center>
-                            <img fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (pCtrl.product.photo) ? pCtrl.product.photo : 'logo.png' }}" />
+                            <img fallback-src="{{ pCtrl.baseImgUrl }}logo.png" ng-src="{{ pCtrl.baseImgUrl }}{{ (pCtrl.product.photo) ? pCtrl.product.photo : 'logo.png' }}"
+                            />
                         </center>
                     </div>
 
@@ -88,7 +125,7 @@
                             <div data-echarts data-options="pie1.options" style="height: 350px;"></div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                <div data-echarts data-options="bar1.options" style="height: 350px;"></div>
+                            <div data-echarts data-options="bar1.options" style="height: 350px;"></div>
                         </div>
                     </div>
 

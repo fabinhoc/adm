@@ -1,0 +1,18 @@
+// Shared variables and mixins
+@import 
+    "../global/var"                        // global variables
+,   "../global/var-extra"                  // extra global variables
+,   "../bootstrap/bootstrap/mixins"        // Bootstrap mixins
+;
+
+.hover-panel {
+    cursor:pointer;
+    
+    &:hover{
+        background-color: $gray-lighter;
+        .panel-bottom {
+            background-color:$gray-lighter;
+        }
+    }
+    
+}
